@@ -1,0 +1,66 @@
+<div class="container align-content-center">
+  <span class="d-flex justify-content-center">
+    <input type="button" name="toggleButton" value="Show Form" (click)="showForm($event)" class="btn btn-info"
+      style="align-self: center;margin-top: 10px;">
+      <input type="button" name="exportbtn" value="Export Data" (click)="export()" class="btn btn-info"
+      style="align-self: center;margin-top: 10px; margin-left: 10px;">
+      <input id="input-file" type="file" name="file" style="margin-top:10px;margin-left:10px"
+      (change)="onFileSelected($event)">
+    </span>
+</div>
+<br>
+<div class="container">
+  <table class="table" id="table1">
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Contact</th>
+      <th>Gender</th>
+      <th>Hobbies</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let row of rows">
+      <td>{{row.name}}</td>
+      <td>{{row.age}}</td>
+      <td>{{row.address}}</td>
+      <td>{{row.contact}}</td>
+      <td>{{row.gender}}</td>
+      <td>{{row.hobbies}}</td>
+      <td><input type="button" value="Edit" (click)="editFunction()" id="edtbtn"></td>
+    </tr>
+  </table>
+  <hr>
+  <form id="form1" class="form-group" [formGroup]="formdata" (ngSubmit)="addData(formdata.value)"
+    style="display: none;">
+    <input type="text" placeholder="Enter Name" class="form-control" name="name" class="fortextbox form-control"
+      formControlName="name"><br>
+
+    <input type="number" placeholder="Enter Age" class="form-control" name="age" class="fortextbox form-control"
+      formControlName="age"><br>
+
+    <input type="text" placeholder="Enter address" class="form-control" name="address" class="fortextbox form-control"
+      formControlName="address"><br>
+
+    <input type="tel" placeholder="Enter contact" class="form-control" name="contact" class="fortextbox form-control"
+      formControlName="contact"><br>
+
+      Gender: <br>
+      <input type="radio" value="Male" formControlName="gender" id="maleRadio">Male<br>
+      <input type="radio" value="Female" formControlName="gender" id="femaleRadio">Female <br>
+      <br>
+      Hobby :  <br>
+    <div *ngFor="let h of hobbies">
+      <input type="checkbox" name="hobbies" value="{{h.name}}" formControlName = "hobby" (change)=
+      "onCheckboxChange(h,$event)">
+      <label>{{h.name}}</label>
+    </div>
+
+    <input type="submit" [disabled]="!formdata.valid" class="forsubmit btn btn-primary" value="Add"
+      style="float: right;" id="btnAdd">
+      <input type="button" id="btnUpdate" value="Update" class="forsubmit btn btn-info" 
+      (click)="updateFunction()" style="display: none">
+            
+  </form>
+</div>
+<router-outlet></router-outlet>
